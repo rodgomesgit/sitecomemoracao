@@ -248,6 +248,33 @@ img { max-width: 100%; display: block; }
   line-height: 1.6;
   margin: 0 0 1.5rem;
 }
+.puzzle-dialog-form { margin: 0 0 1.5rem; text-align: left; }
+.puzzle-dialog-form label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  text-align: center;
+}
+.puzzle-dialog-form input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  border: 2px solid var(--cyan-dark);
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+}
+.puzzle-dialog-form input:focus {
+  outline: none;
+  border-color: var(--cyan);
+}
+.puzzle-dialog-error {
+  color: #f87171;
+  font-size: 0.9rem;
+  margin: 0.6rem 0 0;
+  text-align: center;
+}
 
 /* Hint highlight */
 .puzzle-hint {

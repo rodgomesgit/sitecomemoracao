@@ -50,13 +50,21 @@
   let moveCount = 0;
   let dialog1Shown = false;
   let dialog2Shown = false;
+  let dialog3Shown = false;
+
+  const SECRET_WORDS = ['jujuba', 'ninho', 'devaneio'];
 
   const dialogOverlay = document.getElementById('puzzle-dialog');
   const dialogText = document.getElementById('puzzle-dialog-text');
   const dialogBtn = document.getElementById('puzzle-dialog-btn');
+  const dialogForm = document.getElementById('puzzle-dialog-form');
+  const dialogQuestion = document.getElementById('puzzle-dialog-question');
+  const dialogInput = document.getElementById('puzzle-dialog-input');
+  const dialogError = document.getElementById('puzzle-dialog-error');
 
   function showDialog(message, buttonLabel, onConfirm) {
     dialogText.textContent = message;
+    dialogForm.hidden = true;
     dialogBtn.textContent = buttonLabel;
     dialogOverlay.hidden = false;
     dialogBtn.onclick = () => {
@@ -64,6 +72,42 @@
       onConfirm();
     };
   }
+
+  function normalizeWords(text) {
+    return text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '')
+      .split(/[^a-z]+/)
+      .filter(Boolean);
+  }
+
+  function showPasswordDialog(message, question, answerWords, onSuccess) {
+    dialogText.textContent = message;
+    dialogQuestion.textContent = question;
+    dialogInput.value = '';
+    dialogError.hidden = true;
+    dialogForm.hidden = false;
+    dialogBtn.textContent = 'Responder';
+    dialogOverlay.hidden = false;
+    dialogInput.focus();
+
+    dialogBtn.onclick = () => {
+      const givenWords = normalizeWords(dialogInput.value);
+      const isCorrect = answerWords.every((word) => givenWords.includes(word));
+      if (isCorrect) {
+        dialogOverlay.hidden = true;
+        onSuccess();
+      } else {
+        dialogError.textContent = 'Não é isso... tenta de novo. 💭';
+        dialogError.hidden = false;
+      }
+    };
+  }
+
+  dialogInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') dialogBtn.click();
+  });
 
   function checkTeasingDialogs() {
     if (!dialog1Shown && moveCount >= 50) {
@@ -75,7 +119,22 @@
       );
     } else if (dialog1Shown && !dialog2Shown && moveCount >= 20) {
       dialog2Shown = true;
-      showDialog('Está bem, vou te dar uma colher de chá', 'Usar dica', () => giveHint());
+      showDialog('Está bem, vou te dar uma colher de chá', 'Usar dica', () => {
+        giveHint();
+        moveCount = 0;
+      });
+    } else if (dialog2Shown && !dialog3Shown && moveCount >= 20) {
+      dialog3Shown = true;
+      showPasswordDialog(
+        'É, realmente não tem jeito, você é péssimo nisso. Mas eu vou te ajudar. Responda a seguinte pergunta e você vai acessar a surpresa.',
+        'Quais são os nossos códigos?',
+        SECRET_WORDS,
+        () => {
+          solved = true;
+          statusEl.textContent = 'Você conseguiu! 💖';
+          unlockReveal();
+        }
+      );
     }
   }
 
@@ -242,6 +301,7 @@
   shuffleBtn.addEventListener('click', () => {
     dialog1Shown = false;
     dialog2Shown = false;
+    dialog3Shown = false;
     shuffle();
   });
 
