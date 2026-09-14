@@ -47,6 +47,93 @@
 
   let tiles = [];
   let solved = false;
+  let moveCount = 0;
+  let dialog1Shown = false;
+  let dialog2Shown = false;
+
+  const dialogOverlay = document.getElementById('puzzle-dialog');
+  const dialogText = document.getElementById('puzzle-dialog-text');
+  const dialogBtn = document.getElementById('puzzle-dialog-btn');
+
+  function showDialog(message, buttonLabel, onConfirm) {
+    dialogText.textContent = message;
+    dialogBtn.textContent = buttonLabel;
+    dialogOverlay.hidden = false;
+    dialogBtn.onclick = () => {
+      dialogOverlay.hidden = true;
+      onConfirm();
+    };
+  }
+
+  function checkTeasingDialogs() {
+    if (!dialog1Shown && moveCount >= 50) {
+      dialog1Shown = true;
+      showDialog(
+        'Não conseguiu desvendar? Que pena... Não vai conseguir descobrir a surpresa...',
+        'Tentar de novo',
+        () => shuffle()
+      );
+    } else if (dialog1Shown && !dialog2Shown && moveCount >= 20) {
+      dialog2Shown = true;
+      showDialog('Está bem, vou te dar uma colher de chá', 'Usar dica', () => giveHint());
+    }
+  }
+
+  // Solves the current board with a breadth-first search and returns the
+  // index of the tile to click for the first move toward the solution.
+  function findHintMove(startTiles) {
+    const targetKey = solvedArray().join(',');
+    const startKey = startTiles.join(',');
+    if (startKey === targetKey) return null;
+
+    const queue = [startTiles];
+    const cameFrom = new Map([[startKey, null]]);
+
+    while (queue.length) {
+      const current = queue.shift();
+      const key = current.join(',');
+      if (key === targetKey) break;
+
+      const emptyIndex = current.indexOf(EMPTY);
+      const row = Math.floor(emptyIndex / SIZE);
+      const col = emptyIndex % SIZE;
+      const candidates = [];
+      if (row > 0) candidates.push(emptyIndex - SIZE);
+      if (row < SIZE - 1) candidates.push(emptyIndex + SIZE);
+      if (col > 0) candidates.push(emptyIndex - 1);
+      if (col < SIZE - 1) candidates.push(emptyIndex + 1);
+
+      for (const n of candidates) {
+        const next = current.slice();
+        [next[emptyIndex], next[n]] = [next[n], next[emptyIndex]];
+        const nextKey = next.join(',');
+        if (!cameFrom.has(nextKey)) {
+          cameFrom.set(nextKey, { prevKey: key, moveIndex: n });
+          queue.push(next);
+        }
+      }
+    }
+
+    if (!cameFrom.has(targetKey)) return null;
+
+    let key = targetKey;
+    let firstMove = null;
+    while (cameFrom.get(key)) {
+      const entry = cameFrom.get(key);
+      firstMove = entry.moveIndex;
+      key = entry.prevKey;
+    }
+    return firstMove;
+  }
+
+  function giveHint() {
+    const moveIndex = findHintMove(tiles);
+    if (moveIndex == null) return;
+    const tileEl = board.children[moveIndex];
+    if (!tileEl) return;
+    tileEl.classList.add('puzzle-hint');
+    setTimeout(() => tileEl.classList.remove('puzzle-hint'), 3000);
+  }
 
   function preloadImage() {
     return new Promise((resolve) => {
@@ -86,6 +173,7 @@
     } while (!isSolvable(arr) || isSolved(arr));
     tiles = arr;
     solved = false;
+    moveCount = 0;
     render();
     statusEl.textContent = '';
   }
@@ -132,13 +220,17 @@
     if (!isAdjacent) return;
 
     [tiles[index], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[index]];
+    moveCount++;
     render();
 
     if (isSolved(tiles)) {
       solved = true;
       statusEl.textContent = 'Você resolveu! 💖';
       unlockReveal();
+      return;
     }
+
+    checkTeasingDialogs();
   }
 
   function unlockReveal() {
@@ -147,7 +239,11 @@
     launchConfetti();
   }
 
-  shuffleBtn.addEventListener('click', shuffle);
+  shuffleBtn.addEventListener('click', () => {
+    dialog1Shown = false;
+    dialog2Shown = false;
+    shuffle();
+  });
 
   preloadImage().then((src) => {
     puzzleImage = src;

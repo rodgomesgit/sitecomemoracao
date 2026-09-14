@@ -224,6 +224,42 @@ img { max-width: 100%; display: block; }
 .puzzle-tile:not(.empty):hover { filter: brightness(1.1); }
 .puzzle-status { font-weight: 600; color: var(--cyan); min-height: 1.4rem; }
 
+/* Puzzle teasing dialog */
+.puzzle-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  z-index: 20;
+}
+.puzzle-dialog-overlay:not([hidden]) { display: flex; }
+.puzzle-dialog {
+  background: var(--bg-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem 1.8rem;
+  max-width: 360px;
+  text-align: center;
+}
+.puzzle-dialog p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+}
+
+/* Hint highlight */
+.puzzle-hint {
+  outline: 4px solid var(--cyan);
+  outline-offset: -4px;
+  animation: hintPulse 1s ease-in-out infinite;
+}
+@keyframes hintPulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.6); }
+}
+
 /* Reveal */
 .reveal-section {
   text-align: center;
