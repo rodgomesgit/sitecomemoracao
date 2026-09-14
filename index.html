@@ -139,6 +139,20 @@
         com você, peça por peça. Vem comigo para a próxima fase?
       </p>
       <p class="reveal-highlight">Em breve nosso casamento! 💕</p>
+
+      <div class="voice-message" id="voice-message">
+        <p class="voice-message-label">🎙️ Uma mensagem gravada para vocês</p>
+        <audio
+          id="voice-audio"
+          controls
+          preload="metadata"
+          onerror="document.getElementById('voice-message').classList.add('voice-message--missing')"
+        >
+          <source src="assets/audio/mensagem.mp3" type="audio/mpeg">
+          Seu navegador não suporta reprodução de áudio.
+        </audio>
+        <p class="voice-message-fallback">A mensagem de voz será adicionada em breve. 💌</p>
+      </div>
     </div>
     <canvas id="confetti-canvas" aria-hidden="true"></canvas>
   </section>

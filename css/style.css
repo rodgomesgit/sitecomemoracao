@@ -257,6 +257,34 @@ img { max-width: 100%; display: block; }
   font-size: 1.8rem;
   font-style: italic;
 }
+
+/* Voice message box */
+.voice-message {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius);
+  backdrop-filter: blur(4px);
+}
+.voice-message-label {
+  font-weight: 700;
+  margin: 0 0 1rem;
+  font-size: 1rem;
+}
+.voice-message audio {
+  width: 100%;
+  max-width: 420px;
+}
+.voice-message-fallback {
+  display: none;
+  margin: 0.6rem 0 0;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  font-style: italic;
+}
+.voice-message--missing audio { display: none; }
+.voice-message--missing .voice-message-fallback { display: block; }
 #confetti-canvas {
   position: absolute;
   inset: 0;
