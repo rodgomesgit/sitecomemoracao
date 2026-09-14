@@ -1,7 +1,7 @@
 // ---------- Floating petals ----------
 (function petals() {
   const container = document.querySelector('.petals');
-  const symbols = ['💗', '💕', '🌸', '💖'];
+  const symbols = ['🩵', '✨', '💠', '🔷'];
   const count = 18;
 
   for (let i = 0; i < count; i++) {
@@ -168,7 +168,7 @@ function launchConfetti() {
   resize();
   window.addEventListener('resize', resize);
 
-  const colors = ['#ffffff', '#f7c6d0', '#e88ca6', '#ffd166'];
+  const colors = ['#ffffff', '#22d3ee', '#67e8f9', '#0891b2'];
   const particles = Array.from({ length: 120 }, () => ({
     x: canvas.width / 2,
     y: canvas.height / 2,

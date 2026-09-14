@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#f7c6d0"/>
-      <stop offset="100%" stop-color="#b23a5b"/>
+      <stop offset="0%" stop-color="#383d42"/>
+      <stop offset="100%" stop-color="#0891b2"/>
     </linearGradient>
   </defs>
   <rect width="400" height="400" fill="url(#bg)"/>
-  <text x="50%" y="48%" text-anchor="middle" font-family="Georgia, serif" font-size="90" fill="#fff" opacity="0.95">&#10084;</text>
-  <text x="50%" y="66%" text-anchor="middle" font-family="Verdana, sans-serif" font-size="16" fill="#fff" opacity="0.85">Adicione sua foto aqui</text>
+  <text x="50%" y="48%" text-anchor="middle" font-family="Georgia, serif" font-size="90" fill="#ffffff" opacity="0.95">&#10084;</text>
+  <text x="50%" y="66%" text-anchor="middle" font-family="Verdana, sans-serif" font-size="16" fill="#ffffff" opacity="0.85">Adicione sua foto aqui</text>
 </svg>

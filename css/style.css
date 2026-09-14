@@ -1,11 +1,12 @@
 :root {
-  --rose: #e88ca6;
-  --rose-dark: #b23a5b;
-  --maroon: #6e1f38;
-  --cream: #fff6f2;
-  --cream-dark: #fbe8e4;
-  --text: #4a2733;
-  --shadow: 0 10px 30px rgba(110, 31, 56, 0.15);
+  --cyan: #22d3ee;
+  --cyan-dark: #0891b2;
+  --cyan-soft: #67e8f9;
+  --bg: #2b2f33;
+  --bg-soft: #383d42;
+  --text: #e7edf0;
+  --text-muted: #a7b0b6;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
   --radius: 18px;
 }
 
@@ -17,7 +18,7 @@ body {
   margin: 0;
   font-family: 'Quicksand', sans-serif;
   color: var(--text);
-  background: var(--cream);
+  background: var(--bg);
   overflow-x: hidden;
 }
 
@@ -44,10 +45,10 @@ img { max-width: 100%; display: block; }
 
 .btn-outline {
   background: transparent;
-  color: var(--maroon);
-  border: 2px solid var(--rose-dark);
+  color: var(--cyan-soft);
+  border: 2px solid var(--cyan);
 }
-.btn-outline:hover { background: var(--rose-dark); color: #fff; }
+.btn-outline:hover { background: var(--cyan); color: var(--bg); }
 
 /* Floating petals background */
 .petals {
@@ -75,7 +76,7 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: radial-gradient(circle at top, var(--cream-dark), var(--cream) 70%);
+  background: radial-gradient(circle at top, var(--bg-soft), var(--bg) 70%);
   position: relative;
   z-index: 1;
   padding: 2rem 1.2rem;
@@ -84,20 +85,20 @@ img { max-width: 100%; display: block; }
 .eyebrow {
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--rose-dark);
+  color: var(--cyan);
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 .hero h1 {
   font-size: clamp(2.6rem, 7vw, 4.5rem);
-  color: var(--maroon);
+  color: var(--text);
   line-height: 1.1;
 }
-.hero h1 span { color: var(--rose-dark); font-style: italic; }
+.hero h1 span { color: var(--cyan); font-style: italic; }
 .subtitle {
   font-size: 1.15rem;
   margin: 1.2rem 0 2rem;
-  color: #7a4a58;
+  color: var(--text-muted);
 }
 
 /* Sections */
@@ -111,11 +112,11 @@ img { max-width: 100%; display: block; }
 .section-title {
   text-align: center;
   font-size: clamp(2rem, 5vw, 2.8rem);
-  color: var(--maroon);
+  color: var(--text);
 }
 .section-subtitle {
   text-align: center;
-  color: #8a5b68;
+  color: var(--text-muted);
   margin-top: 0.5rem;
   margin-bottom: 3rem;
 }
@@ -151,8 +152,8 @@ img { max-width: 100%; display: block; }
 .timeline-text { flex: 1 1 280px; }
 .month-tag {
   display: inline-block;
-  background: var(--rose);
-  color: #fff;
+  background: var(--cyan);
+  color: var(--bg);
   padding: 0.3rem 1rem;
   border-radius: 999px;
   font-weight: 700;
@@ -179,7 +180,7 @@ img { max-width: 100%; display: block; }
 /* Letter */
 .letter-section { display: flex; justify-content: center; }
 .letter {
-  background: #fff;
+  background: var(--bg-soft);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 3rem 2.5rem;
@@ -190,13 +191,13 @@ img { max-width: 100%; display: block; }
 .letter-quote {
   font-family: 'Playfair Display', serif;
   font-size: 4rem;
-  color: var(--rose);
+  color: var(--cyan);
   line-height: 0;
   position: relative;
   top: 1.2rem;
 }
 .letter-text { font-size: 1.15rem; line-height: 1.8; font-style: italic; }
-.letter-signature { margin-top: 1.5rem; font-weight: 700; color: var(--maroon); }
+.letter-signature { margin-top: 1.5rem; font-weight: 700; color: var(--cyan-soft); }
 
 /* Puzzle */
 .puzzle-section { text-align: center; }
@@ -208,7 +209,7 @@ img { max-width: 100%; display: block; }
   width: min(90vw, 360px);
   height: min(90vw, 360px);
   gap: 4px;
-  background: var(--maroon);
+  background: var(--cyan-dark);
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
@@ -219,9 +220,9 @@ img { max-width: 100%; display: block; }
   cursor: pointer;
   transition: transform 0.15s ease;
 }
-.puzzle-tile.empty { cursor: default; background: var(--cream-dark); }
-.puzzle-tile:not(.empty):hover { filter: brightness(1.05); }
-.puzzle-status { font-weight: 600; color: var(--rose-dark); min-height: 1.4rem; }
+.puzzle-tile.empty { cursor: default; background: var(--bg-soft); }
+.puzzle-tile:not(.empty):hover { filter: brightness(1.1); }
+.puzzle-status { font-weight: 600; color: var(--cyan); min-height: 1.4rem; }
 
 /* Reveal */
 .reveal-section {
@@ -231,7 +232,7 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: center;
   border-radius: var(--radius);
-  background: linear-gradient(160deg, var(--rose-dark), var(--maroon));
+  background: linear-gradient(160deg, var(--cyan-dark), #14181b);
   color: #fff;
   max-width: none;
   margin: 4rem auto;
@@ -268,7 +269,7 @@ img { max-width: 100%; display: block; }
 .footer {
   text-align: center;
   padding: 2.5rem 1rem;
-  color: #8a5b68;
+  color: var(--text-muted);
   font-size: 0.9rem;
   position: relative;
   z-index: 1;
