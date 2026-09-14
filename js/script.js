@@ -1,7 +1,7 @@
 // ---------- Floating petals ----------
 (function petals() {
   const container = document.querySelector('.petals');
-  const symbols = ['🩵', '✨', '💠', '🔷'];
+  const symbols = ['🩵', '✨', '🦊', '⭐'];
   const count = 18;
 
   for (let i = 0; i < count; i++) {
