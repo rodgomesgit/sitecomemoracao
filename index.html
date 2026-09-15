@@ -157,6 +157,8 @@
         <audio
           id="voice-audio"
           controls
+          controlsList="nodownload"
+          oncontextmenu="return false"
           preload="metadata"
           onerror="document.getElementById('voice-message').classList.add('voice-message--missing')"
         >
